@@ -38,8 +38,8 @@ print(type(np_baseball))
 
     ## <class 'numpy.ndarray'>
 
-Baseball Players' Height
-------------------------
+1D Arrays
+---------
 
 ``` python
 
@@ -60,7 +60,73 @@ np_height_m = np_height * 0.0254
 
 # Print np_height_m
 print(np_height_m)
+
+weight = list([170, 220, 156, 190, 202, 221])
+
+# Calculate the BMI: bmi
+np_height_m = np.array(height) * 0.0254
+np_weight_kg = np.array(weight) * 0.453592
+bmi = np_weight_kg / np_height_m ** 2
+
+# Create the light array
+light = bmi < 21
+
+# Print out light
+print(light)
+
+# Print out BMIs of all baseball players whose BMI is below 21
+print(bmi[light])
 ```
 
     ## [74 74 72 75 75 73]
     ## [1.8796 1.8796 1.8288 1.905  1.905  1.8542]
+    ## [False False False False False False]
+    ## []
+
+2D Arrays
+---------
+
+``` python
+
+# Create baseball, a list of lists
+baseball = [[180, 78.4],
+            [215, 102.7],
+            [210, 98.5],
+            [188, 75.2]]
+
+# Import numpy
+import numpy as np
+
+# Create a 2D numpy array from baseball: np_baseball
+np_baseball = np.array(baseball)
+
+# Print out the type of np_baseball
+print(type(np_baseball))
+
+# Print out the shape of np_baseball
+print(np_baseball.shape)
+```
+
+    ## <class 'numpy.ndarray'>
+    ## (4, 2)
+
+Basic Statistics
+----------------
+
+``` python
+
+# Import numpy
+import numpy as np
+
+# Generate data
+height = np.round(np.random.normal(1.75, 0.20, 5000),2)
+weight = np.round(np.random.normal(60.32, 15, 5000),2)
+np_city = np.column_stack((height, weight))
+
+# Find mean and median for height
+print(np.mean(height))
+print(np.median(height))
+```
+
+    ## 1.7439220000000002
+    ## 1.75
