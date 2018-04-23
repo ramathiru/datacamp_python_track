@@ -140,20 +140,8 @@ corr = np.corrcoef(np_city[:,0], np_city[:,1])
 print("Correlation: " + str(corr))
 ```
 
-    ## Average: 1.749118
-    ## Median: 1.75
-    ## Standard Deviation: 0.19519703398361357
-    ## Correlation: [[1.         0.01752332]
-    ##  [0.01752332 1.        ]]
-
-Basic plots with Matplotlib
----------------------------
-
-``` python
-
-import matplotlib.pyplot as plt
-year = [1950, 1970, 1990, 2010]
-pop = [2.519, 3.692, 5.263, 6.972]
-plt.plot(year, pop)
-plt.show()
-```
+    ## Average: 1.755768
+    ## Median: 1.76
+    ## Standard Deviation: 0.19899198520543485
+    ## Correlation: [[ 1.         -0.01404214]
+    ##  [-0.01404214  1.        ]]

@@ -1,0 +1,55 @@
+---
+title: "DataCamp Intermediate Python"
+author: "Mark Blackmore"
+date: "April 23, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+
+library(reticulate)
+
+knitr::knit_engines$set(python = reticulate::eng_python)
+
+```
+
+## Basic Plots with Matplotlib
+
+```{python}
+# Import matplotlib.pyplot
+import matplotlib.pyplot as plt
+year = [1950, 1970, 1990, 2010]
+pop = [2.519, 3.692, 5.263, 6.972]
+
+# Line plot
+plt.plot(year, pop)
+plt.show()
+plt.clf()
+
+#Scatter plot
+plt.scatter(year, pop)
+plt.show()
+plt.clf()
+
+# Import numpy
+import numpy as np
+
+# Generate data
+height = np.round(np.random.normal(1.75, 0.20, 5000),2)
+weight = np.round(np.random.normal(60.32, 15, 5000),2)
+
+# Histogram
+plt.hist(height, bins = 10)
+plt.show()
+plt.clf()
+
+plt.hist(height, bins = 5)
+plt.show()
+plt.clf()
+
+
+
+```
