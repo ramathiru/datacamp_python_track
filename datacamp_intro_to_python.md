@@ -17,7 +17,7 @@ Installing Python Packages
 
 2.  Upgrade pip with the following call in a terminal window: python -m pip install -U pip
 
-3.  Install some packages, for example numpy and pandas: pip3 install numpy pip3 install pandas
+3.  Install some packages, for example numpy, pandas matplotlib. From a terminal window: pip3 install numpy pip3 install pandas pip3 install matplotlib
 
 First NumPy Array
 -----------------
@@ -123,10 +123,37 @@ height = np.round(np.random.normal(1.75, 0.20, 5000),2)
 weight = np.round(np.random.normal(60.32, 15, 5000),2)
 np_city = np.column_stack((height, weight))
 
-# Find mean and median for height
-print(np.mean(height))
-print(np.median(height))
+# Print mean height (first column)
+avg = np.mean(np_city[:,0])
+print("Average: " + str(avg))
+
+# Print median height
+med = np.median(np_city[:,0])
+print("Median: " + str(med))
+
+# Print out the standard deviation on height
+stddev = np.std(np_city[:,0])
+print("Standard Deviation: " + str(stddev))
+
+# Print out correlation between first and second column
+corr = np.corrcoef(np_city[:,0], np_city[:,1])
+print("Correlation: " + str(corr))
 ```
 
-    ## 1.7439220000000002
-    ## 1.75
+    ## Average: 1.749118
+    ## Median: 1.75
+    ## Standard Deviation: 0.19519703398361357
+    ## Correlation: [[1.         0.01752332]
+    ##  [0.01752332 1.        ]]
+
+Basic plots with Matplotlib
+---------------------------
+
+``` python
+
+import matplotlib.pyplot as plt
+year = [1950, 1970, 1990, 2010]
+pop = [2.519, 3.692, 5.263, 6.972]
+plt.plot(year, pop)
+plt.show()
+```
