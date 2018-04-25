@@ -579,3 +579,246 @@ else :
 ```
 
     ## medium size, nice!
+
+Filtering Pandas DataFrames
+===========================
+
+``` python
+# Import cars data
+import pandas as pd
+cars  = pd.read_csv("https://assets.datacamp.com/production/course_799/datasets/cars.csv", index_col = 0)
+# Extract drives_right column as Series: dr
+dr  = cars['drives_right']
+# Use dr to subset cars: sel
+sel = cars[dr]
+# Print sel
+print(sel)
+# Convert code to a one-liner
+```
+
+    ##      cars_per_cap        country  drives_right
+    ## US            809  United States          True
+    ## RU            200         Russia          True
+    ## MOR            70        Morocco          True
+    ## EG             45          Egypt          True
+
+``` python
+sel = cars[cars['drives_right']]
+# Print sel
+print(sel)
+# Create car_maniac: observations that have a cars_per_cap over 500
+```
+
+    ##      cars_per_cap        country  drives_right
+    ## US            809  United States          True
+    ## RU            200         Russia          True
+    ## MOR            70        Morocco          True
+    ## EG             45          Egypt          True
+
+``` python
+cpc = cars['cars_per_cap'] 
+many_cars = cpc > 500
+car_maniac = cars[many_cars]
+# Print car_maniac
+print(car_maniac)
+# Create medium: observations with cars_per_cap between 100 and 500
+```
+
+    ##      cars_per_cap        country  drives_right
+    ## US            809  United States          True
+    ## AUS           731      Australia         False
+    ## JAP           588          Japan         False
+
+``` python
+cpc = cars['cars_per_cap']
+between = np.logical_and(cpc > 100, cpc < 500)
+medium = cars[between]
+# Print medium
+print(medium)
+```
+
+    ##     cars_per_cap country  drives_right
+    ## RU           200  Russia          True
+
+Loops
+-----
+
+``` python
+# Initialize offset
+offset = 8
+# Code the while loop
+while offset != 0 :
+    print('correcting...')
+    offset = offset - 1
+    print(offset)
+    
+# Initialize offset
+```
+
+    ## correcting...
+    ## 7
+    ## correcting...
+    ## 6
+    ## correcting...
+    ## 5
+    ## correcting...
+    ## 4
+    ## correcting...
+    ## 3
+    ## correcting...
+    ## 2
+    ## correcting...
+    ## 1
+    ## correcting...
+    ## 0
+
+``` python
+offset = -6
+# Code the while loop
+while offset != 0 :
+    print("correcting...")
+    if offset > 0 :
+        offset = offset - 1
+    else :
+        offset = offset + 1
+    print(offset)    
+# areas list
+```
+
+    ## correcting...
+    ## -5
+    ## correcting...
+    ## -4
+    ## correcting...
+    ## -3
+    ## correcting...
+    ## -2
+    ## correcting...
+    ## -1
+    ## correcting...
+    ## 0
+
+``` python
+areas = [11.25, 18.0, 20.0, 10.75, 9.50]
+# Code the for loop
+for measure in areas :
+    print(measure)
+    
+# Change for loop to use enumerate()
+```
+
+    ## 11.25
+    ## 18.0
+    ## 20.0
+    ## 10.75
+    ## 9.5
+
+``` python
+for index, a in enumerate(areas) :
+    print("room " + str(index) + ": " + str(a))
+# Code the for loop, reindex output
+```
+
+    ## room 0: 11.25
+    ## room 1: 18.0
+    ## room 2: 20.0
+    ## room 3: 10.75
+    ## room 4: 9.5
+
+``` python
+for index, area in enumerate(areas) :
+    print("room " + str(index + 1) + ": " + str(area))
+    
+# house list of lists
+```
+
+    ## room 1: 11.25
+    ## room 2: 18.0
+    ## room 3: 20.0
+    ## room 4: 10.75
+    ## room 5: 9.5
+
+``` python
+house = [["hallway", 11.25], 
+         ["kitchen", 18.0], 
+         ["living room", 20.0], 
+         ["bedroom", 10.75], 
+         ["bathroom", 9.50]]
+         
+# Build a for loop from scratch
+for x in house :
+    print("the " + str(x[0]) + " is " + str(x[1]) + " sqm")    
+```
+
+    ## the hallway is 11.25 sqm
+    ## the kitchen is 18.0 sqm
+    ## the living room is 20.0 sqm
+    ## the bedroom is 10.75 sqm
+    ## the bathroom is 9.5 sqm
+
+Looping Data Structures
+-----------------------
+
+``` python
+# Definition of dictionary
+europe = {'spain':'madrid', 'france':'paris', 'germany':'berlin',
+          'norway':'oslo', 'italy':'rome', 'poland':'warsaw', 'austria':'vienna' }
+          
+# Iterate over dsictionary: europe
+for key, value in europe.items() :
+    print('the capital of ' + key + ' is ' + str(value))
+# Import numpy
+```
+
+    ## the capital of spain is madrid
+    ## the capital of france is paris
+    ## the capital of germany is berlin
+    ## the capital of norway is oslo
+    ## the capital of italy is rome
+    ## the capital of poland is warsaw
+    ## the capital of austria is vienna
+
+``` python
+import numpy as np
+# Baseball player's heights & weights
+height = [74, 74, 72, 75, 75, 73]
+weight = [170, 220, 156, 190, 202, 221]
+# Create a numpy arrays from height & weight
+np_height = np.array(height)
+np_weight = np.array(weight)
+# Create baseball, a list of lists
+baseball = [[180, 78.4],
+            [215, 102.7],
+            [210, 98.5],
+            [188, 75.2]]
+            
+# Create a 2D numpy array from baseball: np_baseball
+np_baseball = np.array(baseball)
+# Import numpy as np
+import numpy as np
+# For loop over np_height
+for x in np_height :
+    print(str(x) + " inches")
+# For loop over np_baseball
+```
+
+    ## 74 inches
+    ## 74 inches
+    ## 72 inches
+    ## 75 inches
+    ## 75 inches
+    ## 73 inches
+
+``` python
+for x in np.nditer(np_baseball):
+    print(str(x)) 
+```
+
+    ## 180.0
+    ## 78.4
+    ## 215.0
+    ## 102.7
+    ## 210.0
+    ## 98.5
+    ## 188.0
+    ## 75.2
