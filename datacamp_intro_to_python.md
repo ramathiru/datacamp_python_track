@@ -140,8 +140,8 @@ corr = np.corrcoef(np_city[:,0], np_city[:,1])
 print("Correlation: " + str(corr))
 ```
 
-    ## Average: 1.755768
-    ## Median: 1.76
-    ## Standard Deviation: 0.19899198520543485
-    ## Correlation: [[ 1.         -0.01404214]
-    ##  [-0.01404214  1.        ]]
+    ## Average: 1.753468
+    ## Median: 1.755
+    ## Standard Deviation: 0.20139824471926263
+    ## Correlation: [[1.         0.00312845]
+    ##  [0.00312845 1.        ]]

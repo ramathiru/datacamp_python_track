@@ -3,6 +3,25 @@ DataCamp Intermediate Python
 Mark Blackmore
 April 23, 2018
 
+-   [Basic Plots with Matplotlib](#basic-plots-with-matplotlib)
+-   [Dictionaries](#dictionaries)
+-   [More Dictionaries](#more-dictionaries)
+-   [Dictionaries to DataFrames](#dictionaries-to-dataframes)
+-   [CSV to DataFrame](#csv-to-dataframe)
+-   [Subsetting DataFrames](#subsetting-dataframes)
+-   [Comparison Operators](#comparison-operators)
+-   [Boolean Operators](#boolean-operators)
+-   [Conditional Statements](#conditional-statements)
+-   [Filtering Pandas DataFrames](#filtering-pandas-dataframes)
+-   [Loops](#loops)
+-   [Looping Data Structures I](#looping-data-structures-i)
+-   [Looping Data Structures II](#looping-data-structures-ii)
+-   [Case Study: Hacker Statistics](#case-study-hacker-statistics)
+    -   [Random Walk](#random-walk)
+    -   [Distribution](#distribution)
+    -   [Paths](#paths)
+    -   [Plot the Distribution](#plot-the-distribution)
+
 Source for setup script: <https://stackoverflow.com/questions/36437028/rstudio-with-python-matplotlib-graph>
 
 Basic Plots with Matplotlib
@@ -200,7 +219,7 @@ print(cars)
     ## EG             45          Egypt          True
 
 CSV to DataFrame
-================
+----------------
 
 ``` python
 # Import pandas as pd
@@ -581,7 +600,7 @@ else :
     ## medium size, nice!
 
 Filtering Pandas DataFrames
-===========================
+---------------------------
 
 ``` python
 # Import cars data
@@ -756,8 +775,8 @@ for x in house :
     ## the bedroom is 10.75 sqm
     ## the bathroom is 9.5 sqm
 
-Looping Data Structures
------------------------
+Looping Data Structures I
+-------------------------
 
 ``` python
 # Definition of dictionary
@@ -822,3 +841,314 @@ for x in np.nditer(np_baseball):
     ## 98.5
     ## 188.0
     ## 75.2
+
+Looping Data Structures II
+--------------------------
+
+``` python
+# Import pandas as pd
+import pandas as pd
+# Import the cars.csv data: cars
+cars  = pd.read_csv("https://assets.datacamp.com/production/course_799/datasets/cars.csv")
+# Iterate over rows of cars
+for lab, row in cars.iterrows() :
+    print(lab)
+    print(row)
+# Adapt for loop
+```
+
+    ## 0
+    ## Unnamed: 0                 US
+    ## cars_per_cap              809
+    ## country         United States
+    ## drives_right             True
+    ## Name: 0, dtype: object
+    ## 1
+    ## Unnamed: 0            AUS
+    ## cars_per_cap          731
+    ## country         Australia
+    ## drives_right        False
+    ## Name: 1, dtype: object
+    ## 2
+    ## Unnamed: 0        JAP
+    ## cars_per_cap      588
+    ## country         Japan
+    ## drives_right    False
+    ## Name: 2, dtype: object
+    ## 3
+    ## Unnamed: 0         IN
+    ## cars_per_cap       18
+    ## country         India
+    ## drives_right    False
+    ## Name: 3, dtype: object
+    ## 4
+    ## Unnamed: 0          RU
+    ## cars_per_cap       200
+    ## country         Russia
+    ## drives_right      True
+    ## Name: 4, dtype: object
+    ## 5
+    ## Unnamed: 0          MOR
+    ## cars_per_cap         70
+    ## country         Morocco
+    ## drives_right       True
+    ## Name: 5, dtype: object
+    ## 6
+    ## Unnamed: 0         EG
+    ## cars_per_cap       45
+    ## country         Egypt
+    ## drives_right     True
+    ## Name: 6, dtype: object
+
+``` python
+for lab, row in cars.iterrows() :
+    print(str(lab) + ': ' + str(row['cars_per_cap']))
+    
+# Code for loop that adds COUNTRY column
+```
+
+    ## 0: 809
+    ## 1: 731
+    ## 2: 588
+    ## 3: 18
+    ## 4: 200
+    ## 5: 70
+    ## 6: 45
+
+``` python
+for lab, row in cars.iterrows() :
+    cars.loc[lab, 'COUNTRY'] = row['country'].upper()
+# Print cars
+print(cars)    
+# Use .apply(str.upper)
+```
+
+    ##   Unnamed: 0  cars_per_cap        country  drives_right        COUNTRY
+    ## 0         US           809  United States          True  UNITED STATES
+    ## 1        AUS           731      Australia         False      AUSTRALIA
+    ## 2        JAP           588          Japan         False          JAPAN
+    ## 3         IN            18          India         False          INDIA
+    ## 4         RU           200         Russia          True         RUSSIA
+    ## 5        MOR            70        Morocco          True        MOROCCO
+    ## 6         EG            45          Egypt          True          EGYPT
+
+``` python
+cars['COUNTRY'] = cars['country'].apply(str.upper)
+print(cars)
+```
+
+    ##   Unnamed: 0  cars_per_cap        country  drives_right        COUNTRY
+    ## 0         US           809  United States          True  UNITED STATES
+    ## 1        AUS           731      Australia         False      AUSTRALIA
+    ## 2        JAP           588          Japan         False          JAPAN
+    ## 3         IN            18          India         False          INDIA
+    ## 4         RU           200         Russia          True         RUSSIA
+    ## 5        MOR            70        Morocco          True        MOROCCO
+    ## 6         EG            45          Egypt          True          EGYPT
+
+Case Study: Hacker Statistics
+-----------------------------
+
+``` python
+# Import numpy as np
+import numpy as np
+# Set the seed
+np.random.seed(123)
+# Generate and print random float
+print(np.random.rand())
+# Use randint() to simulate a dice
+```
+
+    ## 0.6964691855978616
+
+``` python
+np.random.seed(123)
+print(np.random.randint(1,7))
+# Use randint() again
+```
+
+    ## 6
+
+``` python
+print(np.random.randint(1,7))
+```
+
+    ## 3
+
+``` python
+np.random.seed(123)
+# Starting step
+step = 50
+# Roll the dice
+dice = np.random.randint(1,7)
+# Finish the control construct
+if dice <= 2 :
+    step = step - 1
+elif dice < 6 :
+    step = step + 1 
+else :        
+    step = step + np.random.randint(1,7)
+# Print out dice and step
+print(dice)
+```
+
+    ## 6
+
+``` python
+print(step)
+```
+
+    ## 53
+
+### Random Walk
+
+``` python
+# Import numpy and set seed
+import numpy as np
+np.random.seed(123)
+# Initialize random_walk
+random_walk = [0]
+# Complete the ___
+for x in range(100) :
+    # Set step: last element in random_walk
+    step = random_walk[-1]
+    # Roll the dice
+    dice = np.random.randint(1,7)
+    # Determine next step
+    if dice <= 2:
+        step = max(0, step - 1)
+    elif dice <= 5:
+        step = step + 1
+    else:
+        step = step + np.random.randint(1,7)
+    # append next_step to random_walk
+    random_walk.append(step)
+# Print random_walk
+print(random_walk)
+# Import matplotlib.pyplot as plt
+```
+
+    ## [0, 3, 4, 5, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1, 0, 0, 1, 6, 5, 4, 5, 4, 5, 6, 7, 8, 9, 8, 9, 8, 9, 10, 11, 12, 11, 15, 16, 15, 16, 15, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 28, 33, 34, 38, 39, 38, 39, 40, 39, 40, 41, 43, 44, 45, 44, 43, 44, 45, 44, 43, 44, 45, 47, 46, 45, 46, 45, 46, 47, 48, 50, 49, 50, 51, 52, 53, 54, 53, 52, 53, 52, 53, 54, 53, 56, 57, 58, 59, 58, 59, 60]
+
+``` python
+import matplotlib.pyplot as plt
+# Plot random_walk
+plt.plot(random_walk)
+# Show the plot
+plt.show()
+```
+
+![](datacamp_intermediate_python_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-15-1.png)
+
+``` python
+plt.clf()
+```
+
+### Distribution
+
+``` python
+# Initialization
+import numpy as np
+np.random.seed(123)
+# Initialize all_walks
+all_walks = []
+# Simulate random walk 10 times
+for i in range(10) :
+    # Code from before
+    random_walk = [0]
+    for x in range(100) :
+        step = random_walk[-1]
+        dice = np.random.randint(1,7)
+        if dice <= 2:
+            step = max(0, step - 1)
+        elif dice <= 5:
+            step = step + 1
+        else:
+            step = step + np.random.randint(1,7)
+        random_walk.append(step)
+    # Append random_walk to all_walks
+    all_walks.append(random_walk)
+# Print all_walks
+print(all_walks)
+```
+
+    ## [[0, 3, 4, 5, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1, 0, 0, 1, 6, 5, 4, 5, 4, 5, 6, 7, 8, 9, 8, 9, 8, 9, 10, 11, 12, 11, 15, 16, 15, 16, 15, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 28, 33, 34, 38, 39, 38, 39, 40, 39, 40, 41, 43, 44, 45, 44, 43, 44, 45, 44, 43, 44, 45, 47, 46, 45, 46, 45, 46, 47, 48, 50, 49, 50, 51, 52, 53, 54, 53, 52, 53, 52, 53, 54, 53, 56, 57, 58, 59, 58, 59, 60], [0, 4, 3, 2, 4, 3, 4, 6, 7, 8, 13, 12, 13, 14, 15, 16, 17, 16, 21, 22, 23, 24, 23, 22, 21, 20, 19, 20, 21, 22, 28, 27, 26, 25, 26, 27, 28, 27, 28, 29, 28, 33, 34, 33, 32, 31, 30, 31, 30, 29, 31, 32, 35, 36, 38, 39, 40, 41, 40, 39, 40, 41, 42, 43, 42, 43, 44, 45, 48, 49, 50, 49, 50, 49, 50, 51, 52, 56, 55, 54, 55, 56, 57, 56, 57, 56, 57, 59, 64, 63, 64, 65, 66, 67, 68, 69, 68, 69, 70, 71, 73], [0, 2, 1, 2, 3, 6, 5, 6, 5, 6, 7, 8, 7, 8, 7, 8, 9, 11, 10, 9, 10, 11, 10, 12, 13, 14, 15, 16, 17, 18, 17, 18, 19, 24, 25, 24, 23, 22, 21, 22, 23, 24, 29, 30, 29, 30, 31, 32, 33, 34, 35, 34, 33, 34, 33, 39, 38, 39, 38, 39, 38, 39, 43, 47, 49, 51, 50, 51, 53, 52, 58, 59, 61, 62, 61, 62, 63, 64, 63, 64, 65, 66, 68, 67, 66, 67, 73, 78, 77, 76, 80, 81, 82, 83, 85, 84, 85, 84, 85, 84, 83], [0, 6, 5, 6, 7, 8, 9, 10, 11, 12, 13, 12, 13, 12, 11, 12, 11, 12, 11, 12, 13, 17, 18, 17, 23, 22, 21, 22, 21, 20, 21, 20, 24, 23, 24, 23, 24, 23, 24, 26, 25, 24, 23, 24, 23, 28, 29, 30, 29, 28, 29, 28, 29, 28, 33, 34, 33, 32, 31, 30, 31, 32, 36, 42, 43, 44, 45, 46, 45, 46, 48, 49, 50, 51, 50, 49, 50, 49, 50, 51, 52, 51, 52, 53, 54, 53, 52, 53, 54, 59, 60, 61, 66, 65, 66, 65, 66, 67, 68, 69, 68], [0, 6, 5, 6, 5, 4, 5, 9, 10, 11, 12, 13, 12, 11, 10, 9, 8, 9, 10, 11, 12, 13, 14, 13, 14, 15, 14, 15, 16, 19, 18, 19, 18, 19, 22, 23, 24, 25, 24, 23, 26, 27, 28, 29, 28, 27, 28, 31, 32, 37, 38, 37, 38, 37, 38, 37, 43, 42, 41, 42, 44, 43, 42, 41, 42, 43, 44, 45, 49, 54, 55, 56, 57, 60, 61, 62, 63, 64, 65, 66, 65, 64, 65, 66, 65, 71, 70, 71, 72, 71, 70, 71, 70, 69, 75, 74, 73, 74, 75, 74, 73], [0, 0, 0, 1, 7, 8, 11, 12, 18, 19, 20, 26, 25, 31, 30, 31, 32, 33, 32, 38, 39, 38, 39, 38, 39, 38, 39, 38, 39, 43, 44, 46, 45, 46, 45, 44, 45, 44, 45, 44, 48, 52, 51, 50, 49, 50, 51, 55, 56, 57, 61, 60, 59, 58, 59, 60, 62, 61, 60, 61, 62, 64, 67, 72, 73, 72, 73, 74, 75, 76, 77, 76, 77, 78, 84, 83, 88, 87, 91, 90, 94, 93, 96, 97, 96, 97, 103, 102, 101, 100, 104, 103, 102, 103, 104, 103, 104, 105, 106, 107, 106], [0, 0, 0, 1, 0, 0, 4, 5, 7, 11, 17, 16, 15, 16, 17, 18, 17, 18, 17, 18, 19, 18, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 33, 32, 35, 36, 35, 34, 35, 36, 37, 36, 35, 34, 33, 34, 35, 36, 37, 38, 39, 40, 39, 40, 41, 43, 42, 43, 44, 47, 49, 50, 49, 48, 47, 46, 45, 46, 45, 46, 48, 49, 50, 49, 50, 49, 48, 49, 48, 47, 46, 47, 46, 45, 46, 47, 48, 50, 51, 52, 51, 50, 51, 57, 56, 57, 58, 63, 62, 63], [0, 0, 1, 2, 1, 2, 3, 9, 10, 11, 12, 11, 13, 14, 15, 16, 15, 16, 17, 18, 19, 18, 19, 18, 19, 20, 19, 20, 24, 25, 28, 29, 33, 34, 33, 34, 35, 34, 33, 38, 39, 40, 39, 38, 39, 40, 41, 40, 44, 43, 44, 45, 46, 47, 48, 49, 50, 49, 48, 47, 48, 49, 53, 54, 53, 54, 55, 54, 60, 61, 62, 63, 62, 63, 64, 67, 66, 67, 66, 65, 64, 65, 66, 68, 69, 70, 74, 75, 74, 73, 74, 75, 74, 73, 74, 75, 76, 75, 74, 75, 76], [0, 1, 0, 1, 2, 1, 0, 0, 1, 2, 3, 4, 5, 10, 14, 13, 14, 13, 12, 11, 12, 11, 12, 13, 12, 16, 17, 16, 17, 16, 15, 16, 15, 19, 20, 21, 22, 23, 24, 23, 24, 25, 26, 27, 28, 27, 32, 33, 34, 33, 34, 33, 34, 35, 34, 35, 40, 41, 42, 41, 42, 43, 44, 43, 44, 43, 44, 45, 44, 43, 42, 43, 44, 43, 42, 41, 42, 46, 47, 48, 49, 50, 51, 50, 51, 52, 51, 52, 57, 58, 57, 56, 57, 56, 55, 54, 58, 59, 60, 61, 60], [0, 1, 2, 3, 4, 5, 4, 3, 6, 5, 4, 3, 2, 3, 9, 10, 9, 10, 11, 10, 9, 10, 11, 12, 11, 15, 16, 15, 17, 18, 17, 18, 19, 20, 21, 22, 23, 22, 21, 22, 23, 22, 23, 24, 23, 22, 21, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 33, 34, 35, 36, 37, 38, 37, 36, 42, 43, 44, 43, 42, 41, 45, 46, 50, 49, 55, 56, 57, 61, 62, 61, 60, 61, 62, 63, 64, 63, 69, 70, 69, 73, 74, 73, 74, 73, 79, 85, 86, 85, 86, 87]]
+
+### Paths
+
+``` python
+import matplotlib.pyplot as plt
+import numpy as np
+np.random.seed(123)
+all_walks = []
+for i in range(10) :
+    random_walk = [0]
+    for x in range(100) :
+        step = random_walk[-1]
+        dice = np.random.randint(1,7)
+        if dice <= 2:
+            step = max(0, step - 1)
+        elif dice <= 5:
+            step = step + 1
+        else:
+            step = step + np.random.randint(1,7)
+        random_walk.append(step)
+    all_walks.append(random_walk)
+# Convert all_walks to Numpy array: np_aw
+np_aw = np.array(all_walks)
+# Plot np_aw and show
+plt.plot(np_aw)
+plt.show()
+# Clear the figure
+```
+
+![](datacamp_intermediate_python_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-1.png)
+
+``` python
+plt.clf()
+# Transpose np_aw: np_aw_t
+np_aw_t = np.transpose(np_aw)
+# Plot np_aw_t and show
+plt.plot(np_aw_t)
+plt.show()
+```
+
+![](datacamp_intermediate_python_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-17-2.png)
+
+### Plot the Distribution
+
+``` python
+import matplotlib.pyplot as plt
+import numpy as np
+np.random.seed(123)
+all_walks = []
+# Simulate random walk 500 times
+for i in range(500) :
+    random_walk = [0]
+    for x in range(100) :
+        step = random_walk[-1]
+        dice = np.random.randint(1,7)
+        if dice <= 2:
+            step = max(0, step - 1)
+        elif dice <= 5:
+            step = step + 1
+        else:
+            step = step + np.random.randint(1,7)
+        if np.random.rand() <= 0.001 :
+            step = 0
+        random_walk.append(step)
+    all_walks.append(random_walk)
+# Create and plot np_aw_t
+np_aw_t = np.transpose(np.array(all_walks))
+# Select last row from np_aw_t: ends
+ends = np_aw_t[-1]
+# Plot histogram of ends, display plot
+plt.hist(ends)
+plt.show()
+```
+
+![](datacamp_intermediate_python_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-18-1.png)
+
+``` python
+plt.clf()
+```
