@@ -1,0 +1,30 @@
+---
+title: "DataCamp Python Data Science Toolbox 2"
+author: "Mark Blackmore"
+date: "April 26, 2018"
+output: 
+  github_document:
+    toc: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+
+library(reticulate)
+
+knitr::knit_engines$set(python = reticulate::eng_python)
+
+```
+
+## Start Here
+
+```{python}
+
+print('Hello new course')
+
+```
+
+
