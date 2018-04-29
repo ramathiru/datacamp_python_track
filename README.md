@@ -9,4 +9,4 @@ A Python Programmer uses their programming skills to wrangle data and build tool
 
 ### [Python Data Science Toolbox I](datacamp_python_toolbox_one.md)
 
-### [Python Data Science Toolbox I](datacamp_python_toolbox_two.md)
+### [Python Data Science Toolbox II](datacamp_python_toolbox_two.md)
